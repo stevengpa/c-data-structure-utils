@@ -1,0 +1,13 @@
+podman build -t debian-dev .
+
+podman run -it --rm \
+  -v $(pwd):/app \
+  --workdir /app \
+  debian-dev bash
+
+> Mac
+export ASAN_OPTIONS=detect_leaks=1:verbosity=2
+rm -rf bin && mkdir bin && clang -fsanitize=address -g -Iinclude src/*.c -o bin/demo
+
+> Linux
+rm -rf bin && mkdir bin && gcc -fsanitize=address -g -Iinclude src/*.c -o bin/demo
